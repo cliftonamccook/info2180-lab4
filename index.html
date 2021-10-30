@@ -13,7 +13,15 @@
         </div>
     </header>
     <main>
-        <button id="search-button">Search</button>
+        <form action="superheroes.php" method="get">
+            <input name="hero" placeholder="e.g. Captain America or Steve Rogers">
+            <button id="search-button">Search</button>
+        </form>
+        <div>
+            <h2 id="result-title">RESULT</h2>
+            <hr>
+            <div id="result"></div>
+        </div>
     </main>
 </body>
 </html>
