@@ -63,10 +63,47 @@ $superheroes = [
   ], 
 ];
 
-?>
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if (empty($_GET)) {
+        ?>
+        <ul>
+        <?php foreach ($superheroes as $superhero): ?>
+            <li><?= $superhero['alias']; ?></li>
+        <?php endforeach; ?>
+        </ul>
+        <?php
+    } else {
+        $query = htmlspecialchars(stripslashes(trim($_GET["hero"])));
+        $alias = '';
+        $name = '';
+        $bio = '';
+        $found = false;
 
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>
+        if ($query == '') {
+            // list them all
+            echo "<ul>";
+            foreach($superheroes as $superhero) {
+                echo "<li>{$superhero['alias']}</li>";
+            }
+            echo "</ul>";
+        } else {
+            foreach($superheroes as $superhero) {
+                if (strtolower($superhero['alias']) == strtolower("${query}") or strtolower($superhero['name']) == strtolower("${query}")) {
+                    $found = true;
+                    $alias = "<h3>{$superhero['alias']}</h3>";
+                    $name = "<h4>A.K.A. {$superhero['name']}</h4>";
+                    $bio = "<p>{$superhero['biography']}</p>";
+                    break;
+                }
+            }
+            if ($found == true) {
+                echo $alias;
+                echo $name;
+                echo $bio;
+            } else {
+                echo '<h3 id="not-found">Superhero not found</h3>';
+            }
+        }
+    }
+}
+?>
