@@ -3,6 +3,7 @@ window.onload = () => {
     button.addEventListener("click", getSuperHeroes);
 };
 
+// Display list of superheores in alert
 function getSuperHeroes(event) {
     event.preventDefault();
     let url = "superheroes.php";
